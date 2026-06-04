@@ -4,6 +4,9 @@ go
 create database HospitalDB
 go
 
+use HospitalDB
+go
+
 
 CREATE SCHEMA Hospital;
 go
@@ -150,11 +153,7 @@ ALTER TABLE Gestion.Citas ALTER COLUMN Costo_Consulta DECIMAL(12,2);
 
 ALTER TABLE Hospital.Habitaciones ADD Disponibilidad BIT DEFAULT 1;
 
-CREATE TABLE #Temporal (Id INT);
-DROP TABLE #Temporal; 
 
-
-ALTER TABLE Hospital.Pacientes DROP CONSTRAINT CK_Paciente_Edad;
 
 
 ALTER TABLE Personal.Medicos DROP CONSTRAINT UQ_CorreoMedico;
@@ -350,7 +349,7 @@ DELETE FROM Gestion.Citas WHERE IdCita = 15;
 DELETE FROM Hospital.Pacientes WHERE IdPaciente = 20;
 
 
-DELETE FROM Gestion.Medicamentos WHERE IdMedicamento = 20; -- Aspirina
+DELETE FROM Gestion.Medicamentos WHERE IdMedicamento = 20;
 
 DELETE FROM Hospital.Habitaciones WHERE IdHabitacion = 10;
 
