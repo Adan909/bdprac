@@ -375,6 +375,38 @@ DELETE FROM Gestion.Medicamentos WHERE Descripcion LIKE '%Vencido%';
 DELETE FROM Gestion.Tratamientos WHERE Nombre LIKE '%Prueba%';
 
 
+SELECT * FROM Hospital.Pacientes;
+
+SELECT * FROM Personal.Medicos;
+
+
+SELECT * FROM Personal.Especialidades;
+
+
+SELECT * FROM Gestion.Citas;
+
+
+SELECT * FROM Hospital.Pacientes ORDER BY Apellido ASC;
+
+
+SELECT * FROM Personal.Medicos ORDER BY salario DESC;
+
+
+SELECT * FROM Gestion.Citas 
+WHERE CAST(FechaCita AS DATE) = CAST(GETDATE() AS DATE);
+
+SELECT * FROM Hospital.Habitaciones WHERE Disponibilidad = 1;
+
+
+SELECT COUNT(*) AS Total_Pacientes FROM Hospital.Pacientes;
+
+
+SELECT M.Nombre, M.Apellido, COUNT(C.IdCita) AS Cantidad_Citas
+FROM Personal.Medicos M
+LEFT JOIN Gestion.Citas C ON M.IdMedico = C.IdMedico
+GROUP BY M.IdMedico, M.Nombre, M.Apellido;
+
+
 
 
 
