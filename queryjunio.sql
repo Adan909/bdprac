@@ -144,4 +144,88 @@ INSERT INTO TEmpleadoProyecto (nEmpleadoID, nProyectoID) VALUES (3, 3);
 
 DELETE FROM TEmpleado WHERE cNIF = '112';
 
+DELETE FROM TEmpleadoProyecto WHERE nEmpleadoID IN (SELECT nEmpleadoID FROM TEmpleado WHERE bActivo = 0);
+DELETE FROM TEmpleado WHERE bActivo = 0;
+
+DELETE FROM TEmpleadoProyecto WHERE nProyectoID = 2;
+DELETE FROM TProyecto WHERE nProyectoID = 2;
+
+DELETE FROM TEmpleadoProyecto WHERE nEmpleadoID = 1;
+
+DELETE FROM TDepartamento WHERE nDepartamentoID = 6;
+
+SELECT * FROM TEmpleado ORDER BY cApellido ASC;
+
+SELECT * FROM TEmpleado WHERE nSalario > 1000;
+
+SELECT * FROM TEmpleado WHERE bActivo = 1;
+
+SELECT * FROM TEmpleado WHERE YEAR(dFechaContratacion) = YEAR(GETDATE());
+
+SELECT E.*, D.cNombreDepartamento 
+FROM TEmpleado E
+INNER JOIN TDepartamento D ON E.nDepartamentoID = D.nDepartamentoID;
+
+SELECT E.*, C.cNombreCargo 
+FROM TEmpleado E
+INNER JOIN TCargo C ON E.nCargoID = C.nCargoID;
+
+SELECT E.nEmpleadoID, E.cNombre, E.cApellido, P.cNombreProyecto
+FROM TEmpleado E
+INNER JOIN TEmpleadoProyecto EP ON E.nEmpleadoID = EP.nEmpleadoID
+INNER JOIN TProyecto P ON EP.nProyectoID = P.nProyectoID;
+
+SELECT nDepartamentoID, COUNT(*) AS TotalEmpleados 
+FROM TEmpleado 
+GROUP BY nDepartamentoID;
+
+SELECT nDepartamentoID, AVG(nSalario) AS SalarioPromedio 
+FROM TEmpleado 
+GROUP BY nDepartamentoID;
+
+SELECT nDepartamentoID, MAX(nSalario) AS SalarioMaximo, MIN(nSalario) AS SalarioMinimo 
+FROM TEmpleado 
+GROUP BY nDepartamentoID;
+
+SELECT nProyectoID, COUNT(nEmpleadoID) AS TotalEmpleados
+FROM TEmpleadoProyecto
+GROUP BY nProyectoID
+HAVING COUNT(nEmpleadoID) > 2;
+
+SELECT * FROM TEmpleado WHERE cApellido LIKE 'G%';
+
+SELECT * FROM TEmpleado ORDER BY nSalario DESC;
+
+SELECT TOP 3 nSalario FROM TEmpleado ORDER BY nSalario DESC;
+
+SELECT * FROM TEmpleado WHERE nEdad BETWEEN 25 AND 40;
+
+SELECT COUNT(*) AS ActivosTotal FROM TEmpleado WHERE bActivo = 1;
+
+SELECT COUNT(*) AS TotalProyectos FROM TProyecto;
+
+ALTER TABLE TEmpleado DROP CONSTRAINT CHK_Empleado_Edad;
+
+ALTER TABLE TEmpleado DROP CONSTRAINT UQ_Empleado_Email;
+
+ALTER TABLE TEmpleado ADD CONSTRAINT CHK_Empleado_Edad CHECK (nEdad BETWEEN 18 AND 65);
+ALTER TABLE TEmpleado ADD CONSTRAINT UQ_Empleado_Email UNIQUE (cEmail);
+
+DROP TABLE TEmpleadoProyecto;
+
+DROP TABLE TProyecto;
+
+DROP TABLE TEmpleado;
+
+DROP TABLE TCargo;
+
+DROP TABLE TDepartamento;
+
+DROP TABLE TSucursal;
+
+USE master;
+GO
+DROP DATABASE EmpresaSQL;
+GO
+
 
